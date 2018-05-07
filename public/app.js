@@ -6,9 +6,6 @@ $.getJSON("/articles", function (data) {
         artDiv.append("<p data-id=" + data[i]._id + ">" + data[i].summary +"<br/><br/>" + data[i].link + "<br/></p>");
         var save = $("<button id=saveArticle> Save Article</button>")
         save.attr("data-id", data[i]._id);
-        save.attr("title", data[i].title)
-        save.attr("href", data[i].link)
-        save.attr("summary", data[i].summary)
         save.attr("saved", data[i].saved)
         artDiv.append(save)
         $("#articles").append(artDiv);
@@ -41,10 +38,11 @@ $(document).on("click", "p", function () {
 
 $(document).on("click", "#saveArticle", function () {
     var thisId = $(this).attr("data-id")
-    var isSaved = $(this).attr("saved")
+    let isSaved = $(this).attr("saved")
+
     if (isSaved === "false") {
         $.ajax({
-            method: "POST",
+            method: "PUT",
             url: "/articles/" + thisId,
             data: {
                 saved: true
@@ -53,7 +51,7 @@ $(document).on("click", "#saveArticle", function () {
             .then(function (data) {
                 console.log(data)
             })
-    }
+    };
 })
 
 $(document).on("click", "#saveNote", function () {

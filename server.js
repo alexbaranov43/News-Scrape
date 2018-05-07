@@ -52,12 +52,12 @@ app.get("/scrape", function (req, res) {
     });
 });
 
-app.get("/articles", function(req, res){
+app.get("/articles", function (req, res) {
     db.article.find({})
-        .then(function(dbArticle){
+        .then(function (dbArticle) {
             res.json(dbArticle);
         })
-        .catch(function(err){
+        .catch(function (err) {
             res.json(err);
         })
 });
@@ -76,34 +76,49 @@ app.get("/articles/:id", function (req, res) {
 
 
 //UPDATING NOTE
-app.post("/articles/:id", function(req, res){
+app.post("/articles/:id", function (req, res) {
     db.note.create(req.body)
-        .then(function(dbNote){
-            return db.article.findOneAndUpdate({ _id: req.params.id}, { note: dbNote._id}, { new: true})
+        .then(function (dbNote) {
+            return db.article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true })
         })
-        .then(function(dbArticle){
+        .then(function (dbArticle) {
             res.json(dbArticle);
         })
-        .catch(function(err){
+        .catch(function (err) {
             res.json(err);
         })
 })
 
-app.post("articles/:id", function(req, res) {
-    db.article.update(req.body)
-    .then(function(dbArticle) {
-      db.article.findOneAndUpdate({
-        _id: req.params.id
-      }, { saved: dbArticle.saved})
-      .then(function(dbArticle) {
-        res.json(dbArticle);
-      })
-      .catch(function(err){
-          res.json(err)
-      })
-    });
-  });
+app.put("/articles/:id", function (req, res) {
 
-app.listen(PORT, function(){
+    db.article.update({
+        _id: req.params.id
+    }, { $set: { saved: true } })
+        .then(function (dbArticle) {
+            console.log(dbArticle)
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+
+});
+
+
+
+app.put("/articles/:id", function (req, res) {
+
+    db.article.update({
+        _id: req.params.id
+    }, { $set: { saved: false } })
+        .then(function (dbArticle) {
+            console.log(dbArticle)
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+
+});app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!")
 });
