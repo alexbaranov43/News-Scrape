@@ -1,4 +1,4 @@
-var mongoose = requier("mongoose");
+var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
@@ -14,6 +14,10 @@ var articleSchema = new Schema({
     summary:{
         type: String,
         required: true
+    },
+    saved: {
+        type: Boolean,
+        default: false
     },
     note: {
         type: Schema.Types.ObjectId,

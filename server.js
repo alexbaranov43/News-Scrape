@@ -6,12 +6,12 @@ var axios = require("axios")
 var cheerio = require("cheerio");
 
 var db = require("./models")
-
+var PORT = 3000;
 var app = express();
 
 app.use(logger("dev"));
 
-app.use(boyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
@@ -19,12 +19,15 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars")
 
-mongoose.connect("mongod://localhost/News-Scraper");
+
+mongoose.connect("mongodb://localhost/News-Scraper");
+var routes = require("./controller/controller.js")
+app.use(routes)
 
 app.get("/scrape", function (req, res) {
     axios.get("https://www.vice.com/en_us/").then(function (response) {
 
-        var $ = cheerio.load(resonse.data);
+        var $ = cheerio.load(response.data);
 
         $("h2.grid__wrapper__card__text__title").each(function (i, element) {
             var result = {};
@@ -37,7 +40,7 @@ app.get("/scrape", function (req, res) {
                 .parent()
                 .text();
 
-            db.article.create(resuts)
+            db.article.create(result)
                 .then(function (dbArticle) {
                     console.log(dbArticle);
                 })
@@ -45,11 +48,21 @@ app.get("/scrape", function (req, res) {
                     return res.json(err);
                 });
         });
-
-        res.send("Scrape Complete")
+        res.redirect('/')
     });
 });
 
+app.get("/articles", function(req, res){
+    db.article.find({})
+        .then(function(dbArticle){
+            res.json(dbArticle);
+        })
+        .catch(function(err){
+            res.json(err);
+        })
+});
+
+//GRABBING ARTICLE BY ID
 app.get("/articles/:id", function (req, res) {
     db.article.findOne({ _id: req.params.id })
         .populate("note")
@@ -61,6 +74,8 @@ app.get("/articles/:id", function (req, res) {
         });
 });
 
+
+//UPDATING NOTE
 app.post("/articles/:id", function(req, res){
     db.note.create(req.body)
         .then(function(dbNote){
@@ -74,6 +89,21 @@ app.post("/articles/:id", function(req, res){
         })
 })
 
-app.listen (PORT, function(){
+app.put("articles/:id", function(req, res) {
+    db.article.update(req.body)
+    .then(function(dbArticle) {
+      db.article.findOneAndUpdate({
+        _id: req.params.id
+      }, { saved: dbArticle.saved})
+      .then(function(dbArticle) {
+        res.json(dbArticle);
+      })
+      .catch(function(err){
+          res.json(err)
+      })
+    });
+  });
+
+app.listen(PORT, function(){
     console.log("App running on port " + PORT + "!")
 });
