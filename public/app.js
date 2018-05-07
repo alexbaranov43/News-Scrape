@@ -44,7 +44,7 @@ $(document).on("click", "#saveArticle", function () {
     var isSaved = $(this).attr("saved")
     if (isSaved === "false") {
         $.ajax({
-            method: "PUT",
+            method: "POST",
             url: "/articles/" + thisId,
             data: {
                 saved: true

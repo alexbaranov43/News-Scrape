@@ -89,7 +89,7 @@ app.post("/articles/:id", function(req, res){
         })
 })
 
-app.put("articles/:id", function(req, res) {
+app.post("articles/:id", function(req, res) {
     db.article.update(req.body)
     .then(function(dbArticle) {
       db.article.findOneAndUpdate({

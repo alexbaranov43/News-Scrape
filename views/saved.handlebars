@@ -1,15 +1,14 @@
-
-{{#if saved}}
+{{#each articles}} {{#if this.saved}}
 <div id="wrapper">
     <div class="row">
-    <div class="col-md-6" id="articles">
-        {{ articles}}
+        <div class="col-md-6" id="articles">
 
-    </div>
-    <div class="col-md-6" id="notes">
 
-        {{ notes }}
-    </div>
+        </div>
+        <div class="col-md-6" id="notes">
+
+
+        </div>
     </div>
 </div>
-{{/if}}
+{{/if}} {{/each}}

@@ -17,7 +17,11 @@ router.get("/", function (req, res) {
 
 router.get("/saved", function(req, res){
     var hbsObject;
-    db.article.find({})
+    db.article.find({
+        where: {
+            saved: true
+        }
+    })
         .then(function(result){
             hbsObject: {
                 articles: result
