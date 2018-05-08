@@ -10,9 +10,9 @@ $(document).on("click", "#artNote", function () {
     })
         .then(function (data) {
             console.log(data);
-            $("#notes"+thisId).append("<h2 id='noteHeading'>" + data.title + "</h2>");
-            $("#notes"+thisId).append("<input id='titleInput' name='title'><br><br>");
-            $("#notes"+thisId).append("<textarea id='bodyInput' name='body'></textarea><br><br>");
+;
+            $("#notes"+thisId).append("<br><br><input id='titleInput' placeholder='Note Title' name='title'><br><br>");
+            $("#notes"+thisId).append("<textarea id='bodyInput' placeholder='Note Body' name='body'></textarea><br><br>");
             $("#notes"+thisId).append("<button data-id='" + data._id + "' id='saveNote'>Save Note</button>");
 
             if (data.note) {
