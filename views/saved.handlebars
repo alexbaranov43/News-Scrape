@@ -1,19 +1,22 @@
-{{#each articles}} {{#if this.saved}}
 <div id="wrapper">
+    {{#each articles}} {{#if this.saved}}
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-6 col-xs-6" id="artDiv">
             <h2> {{ this.title}} </h2>
             <br>
-            <p> {{ this.summary}}</p>
+
             <br>
-            <p> {{this.link}}</p>
+            <p>{{ this.summary}}</p>
+            <br>
 
-
+            <br>
+            <p>{{this.link}}</p>
+            <br>
+            <button type="button" class="btn btn-danger" data-id={{this._id}} id="delete" saved={{this.saved}}>Delete From Saved</button>
+            <button type="button" class="btn btn-info" id='artNote' data-id={{this._id}}> View Article Note </button>
         </div>
-        <div class="col-md-6">
-            
-
+        <div class="col-md-5 col-sm-5 col-xs-5" id="notes">
         </div>
     </div>
+    {{/if}} {{/each}}
 </div>
-{{/if}} {{/each}}

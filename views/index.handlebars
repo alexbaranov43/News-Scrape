@@ -1,8 +1,22 @@
 <div id="wrapper">
+    {{#each articles}}
     <div class="row">
-    <div class="col-md-6" id="articles">
+        <div class="col-md-6 col-sm-6 col-xs-6" id="artDiv">
+            <h2> {{ this.title}} </h2>
+            <br>
+          
+            <br>
+            <p>{{this.summary}}</p>
+            <br>
+            
+            <br>
+            <p>{{this.link}}</p>
+            <br>
+            <button  type="button" class="btn btn-success" data-id={{this._id}} id="saveArticle" saved={{this.saved}}>Save Article</button>
+            <button  type="button" class="btn btn-info" id='artNote' data-id={{this._id}}> View Article Note </button>
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-5"id="notes">
+        </div>
     </div>
-    <div class="col-md-6" id="notes">
-    </div>
-    </div>
+    {{/each}}
 </div>

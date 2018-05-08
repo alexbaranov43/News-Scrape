@@ -1,19 +1,6 @@
-//grab articles
-$.getJSON("/articles", function (data) {
-    for (i = 0; i < data.length; i++) {
-        var artDiv = $("<div id='artDiv'>")
-        artDiv.append("<h2 data-id='"+ data[i]._id + "' id='scrapeTitle'>" + data[i].title + "<br/><br/></h2>")
-        artDiv.append("<p data-id=" + data[i]._id + ">" + data[i].summary +"<br/><br/>" + data[i].link + "<br/></p>");
-        var save = $("<button id=saveArticle> Save Article</button>")
-        save.attr("data-id", data[i]._id);
-        save.attr("saved", data[i].saved)
-        artDiv.append(save)
-        $("#articles").append(artDiv);
-    }
-});
 
 //clicking on p tag
-$(document).on("click", "p", function () {
+$(document).on("click", "#artNote", function () {
     $("#notes").empty();
     var thisId = $(this).attr("data-id");
 
@@ -23,9 +10,9 @@ $(document).on("click", "p", function () {
     })
         .then(function (data) {
             console.log(data);
-            $("#notes").append("<h2>" + data.title + "</h2>");
-            $("#notes").append("<input id='titleInput' name='title'><br/>");
-            $("#notes").append("<textarea id='bodyInput' name='body'></textarea><br/>");
+            $("#notes").append("<h2 id='noteHeading'>" + data.title + "</h2>");
+            $("#notes").append("<input id='titleInput' name='title'><br><br>");
+            $("#notes").append("<textarea id='bodyInput' name='body'></textarea><br><br>");
             $("#notes").append("<button data-id='" + data._id + "' id='saveNote'>Save Note</button>");
 
             if (data.note) {
@@ -46,6 +33,24 @@ $(document).on("click", "#saveArticle", function () {
             url: "/articles/" + thisId,
             data: {
                 saved: true
+            }
+        })
+            .then(function (data) {
+                console.log(data)
+            })
+    };
+})
+
+$(document).on("click", "#delete", function () {
+    var thisId = $(this).attr("data-id")
+    let isSaved = $(this).attr("saved")
+
+    if (isSaved === "true") {
+        $.ajax({
+            method: "PUT",
+            url: "/articles/" + thisId,
+            data: {
+                saved: false
             }
         })
             .then(function (data) {

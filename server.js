@@ -93,7 +93,7 @@ app.put("/articles/:id", function (req, res) {
 
     db.article.update({
         _id: req.params.id
-    }, { $set: { saved: true } })
+    }, { $set: { saved: req.body.saved } })
         .then(function (dbArticle) {
             console.log(dbArticle)
             res.json(dbArticle);
@@ -105,20 +105,6 @@ app.put("/articles/:id", function (req, res) {
 });
 
 
-
-app.put("/articles/:id", function (req, res) {
-
-    db.article.update({
-        _id: req.params.id
-    }, { $set: { saved: false } })
-        .then(function (dbArticle) {
-            console.log(dbArticle)
-            res.json(dbArticle);
-        })
-        .catch(function (err) {
-            res.json(err)
-        })
-
-});app.listen(PORT, function () {
+app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!")
 });

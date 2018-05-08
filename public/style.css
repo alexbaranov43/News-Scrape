@@ -1,7 +1,54 @@
 .page-header{
+    background-color: #ee5253;
     text-align: center
 }
 
+#titleInput, #bodyInput{
+    width: 100%
+}
+
+
+a {
+    color: black;
+    font-size: 24px;
+    font-family: 'Bungee Shade', cursive;
+
+}
+button{
+    font-size: 24px;
+    font-family: 'Bungee Shade', cursive;
+    color: black
+}
+
+h2 {
+    font-family: 'Bungee Shade', cursive;
+    color: black
+}
+
+#noteHeading{
+    background: #f1f2f6;
+    color: black;
+
+}
+
 #artDiv{
-    padding: 10px
+    border: 2px solid ;
+    border-radius: 15px;
+    background: #ee5253;
+    padding: 10px;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    
+}
+
+h1 {
+    font-size: 60px;
+    font-family: 'Bungee Shade', cursive;
+}
+
+body {
+   background-image: url('5217404-newspaper-wallpaper.jpg');
+    font-family: 'Domine', serif;
+    font-size: 24px;
+    color: black
 }
