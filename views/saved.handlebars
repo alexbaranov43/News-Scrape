@@ -12,7 +12,7 @@
             <br>
             <p>{{this.link}}</p>
             <br>
-            <button type="button" class="btn btn-danger" data-id={{this._id}} id="delete" saved={{this.saved}}>Delete From Saved</button>
+            <a href='/saved'><button type="button" class="btn btn-danger" data-id={{this._id}} id="delete" saved={{this.saved}}>Delete From Saved</button></a>
             <button type="button" class="btn btn-info" id='artNote' data-id={{this._id}}> View Article Note </button>
         </div>
         <div class="col-md-5 col-sm-5 col-xs-5" id="notes">
