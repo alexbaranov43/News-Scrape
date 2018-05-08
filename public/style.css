@@ -1,4 +1,5 @@
 .page-header{
+    width: 100%;
     background-color: #ee5253;
     text-align: center
 }
@@ -26,7 +27,6 @@ h2 {
 }
 
 #noteHeading{
-    background: #f1f2f6;
     color: black;
 
 }
@@ -37,18 +37,17 @@ h2 {
     background: #ee5253;
     padding: 10px;
     margin-bottom: 2%;
-    margin-left: 2%;
+    margin-left: 4%;
     
 }
 
 h1 {
-    font-size: 60px;
+    font-size: 50px;
     font-family: 'Bungee Shade', cursive;
 }
 
 body {
    background-image: url('5217404-newspaper-wallpaper.jpg');
     font-family: 'Domine', serif;
-    font-size: 24px;
     color: black
 }

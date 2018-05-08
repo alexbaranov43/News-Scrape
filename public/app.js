@@ -1,8 +1,8 @@
 
 //clicking on p tag
 $(document).on("click", "#artNote", function () {
-    $("#notes").empty();
     var thisId = $(this).attr("data-id");
+    $("#notes"+thisId).empty();
 
     $.ajax({
         method: "GET",
@@ -10,10 +10,10 @@ $(document).on("click", "#artNote", function () {
     })
         .then(function (data) {
             console.log(data);
-            $("#notes").append("<h2 id='noteHeading'>" + data.title + "</h2>");
-            $("#notes").append("<input id='titleInput' name='title'><br><br>");
-            $("#notes").append("<textarea id='bodyInput' name='body'></textarea><br><br>");
-            $("#notes").append("<button data-id='" + data._id + "' id='saveNote'>Save Note</button>");
+            $("#notes"+thisId).append("<h2 id='noteHeading'>" + data.title + "</h2>");
+            $("#notes"+thisId).append("<input id='titleInput' name='title'><br><br>");
+            $("#notes"+thisId).append("<textarea id='bodyInput' name='body'></textarea><br><br>");
+            $("#notes"+thisId).append("<button data-id='" + data._id + "' id='saveNote'>Save Note</button>");
 
             if (data.note) {
                 $("#titleInput").val(data.note.title)
