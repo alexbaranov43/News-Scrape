@@ -19,6 +19,7 @@ $(document).on("click", "#artNote", function () {
                 $("#titleInput").val(data.note.title)
                 $("#bodyInput").val(data.note.body)
             }
+            $("#notes"+thisId).show()
         })
 })
 
@@ -37,6 +38,7 @@ $(document).on("click", "#saveArticle", function () {
         })
             .then(function (data) {
                 console.log(data)
+                $("#notes"+thisId).empty()
             })
     };
 })
@@ -72,7 +74,7 @@ $(document).on("click", "#saveNote", function () {
     })
         .then(function (data) {
             console.log(data)
-            $("#notes").empty()
+            $("#notes"+thisId).hide()
         });
 
     $("#titleInput").val("");
